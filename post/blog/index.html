@@ -1,0 +1,387 @@
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <title>Blog // My New Hugo Site</title>
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.55.5" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="John Doe" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="https://wesleyzxl.github.io/css/main.min.f90f5edd436ec7b74ad05479a05705770306911f721193e7845948fb07fe1335.css" />
+
+    
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Blog"/>
+<meta name="twitter:description" content="SpringMVC MVC模式 在Java Web应用开发中有两种设计模型，模型1是以页面为中心，适合小应用开发；模型2基于MVC模式，是Java Web应用的推荐架构。
+模型1：学习JSP时通常通过链接的方式进行JSP页面间的跳转，但是这种方式会带来维护上的问题。
+模型2：基于模型 - 视图 - 控制器（model - view - controller）模式
+ 视图负责应用的展示 模型封装了应用的数据和业务逻辑 控制器负责接收用户输入，改变模型以及调整视图的显示。  模型2中Servlet和Filter都可以充当控制器。Struts1, Spring MVC, JavaServer Faces使用一个Servlet作为控制器，Struts2使用Filter作为控制器。大部分都采用JSP页面作为应用的视图。模型采用POJO(Plain Old Java Object)。
+每个HTTP请求都发送给控制器，请求中的URI标识出对应的action（代表了应用可以执行的一个操作）。一个提供了action的Java对象成为action对象，一个action类可以支持多个action（Spring MVC和Struts2中），或者一个action（Struts1中）
+控制器会解析URI并调用相应的action，然后将模型对象放到视图可以访问的区域（以便服务端数据可以展示在浏览器上）。最后，控制器利用RequestDispatcher或者HttpServlet Response.sendRedirect()方法跳转到视图（JSP页面或者其他资源）。在JSP页面中，用表达式语言以及定制标签显示数据。
+注意：调用RequestDispatcher.forward方法或者HttpServletResponse.sendRedirect()方法并不会停止执行剩余的代码。因此，若forward方法不是最后一行代码，则应显式地返回。
+if (action.equals.(..)) { // ... request.getRequestDispatcher([dispatcherUrl]).forward(request, response); return; }  SpringMVC的HelloWorld 配置web.xml &lt;!-- 手动配置spring配置文件 --&gt; &lt;context-param&gt; &lt;param-name&gt;contextConfigLocation&lt;/param-name&gt; &lt;param-value&gt;classpath:spring_common.xml&lt;/param-value&gt; &lt;/context-param&gt; &lt;!-- 配置DispatcherServlet --&gt; &lt;servlet&gt; &lt;servlet-name&gt;dispatcher&lt;/servlet-name&gt; &lt;servlet-class&gt;org.springframework.web.servlet.DispatcherServlet&lt;/servlet-class&gt; &lt;init-param&gt; &lt;param-name&gt;contextConfigLocation&lt;/param-name&gt; &lt;param-value&gt;classpath:spring_*.xml&lt;/param-value&gt; &lt;/init-param&gt; &lt;load-on-startup&gt;1&lt;/load-on-startup&gt; &lt;/servlet&gt; &lt;servlet-mapping&gt; &lt;servlet-name&gt;dispatcher&lt;/servlet-name&gt; &lt;url-pattern&gt;/&lt;/url-pattern&gt; &lt;/servlet-mapping&gt;  其中在init-param中自定义加载了spring_mvc."/>
+
+    <meta property="og:title" content="Blog" />
+<meta property="og:description" content="SpringMVC MVC模式 在Java Web应用开发中有两种设计模型，模型1是以页面为中心，适合小应用开发；模型2基于MVC模式，是Java Web应用的推荐架构。
+模型1：学习JSP时通常通过链接的方式进行JSP页面间的跳转，但是这种方式会带来维护上的问题。
+模型2：基于模型 - 视图 - 控制器（model - view - controller）模式
+ 视图负责应用的展示 模型封装了应用的数据和业务逻辑 控制器负责接收用户输入，改变模型以及调整视图的显示。  模型2中Servlet和Filter都可以充当控制器。Struts1, Spring MVC, JavaServer Faces使用一个Servlet作为控制器，Struts2使用Filter作为控制器。大部分都采用JSP页面作为应用的视图。模型采用POJO(Plain Old Java Object)。
+每个HTTP请求都发送给控制器，请求中的URI标识出对应的action（代表了应用可以执行的一个操作）。一个提供了action的Java对象成为action对象，一个action类可以支持多个action（Spring MVC和Struts2中），或者一个action（Struts1中）
+控制器会解析URI并调用相应的action，然后将模型对象放到视图可以访问的区域（以便服务端数据可以展示在浏览器上）。最后，控制器利用RequestDispatcher或者HttpServlet Response.sendRedirect()方法跳转到视图（JSP页面或者其他资源）。在JSP页面中，用表达式语言以及定制标签显示数据。
+注意：调用RequestDispatcher.forward方法或者HttpServletResponse.sendRedirect()方法并不会停止执行剩余的代码。因此，若forward方法不是最后一行代码，则应显式地返回。
+if (action.equals.(..)) { // ... request.getRequestDispatcher([dispatcherUrl]).forward(request, response); return; }  SpringMVC的HelloWorld 配置web.xml &lt;!-- 手动配置spring配置文件 --&gt; &lt;context-param&gt; &lt;param-name&gt;contextConfigLocation&lt;/param-name&gt; &lt;param-value&gt;classpath:spring_common.xml&lt;/param-value&gt; &lt;/context-param&gt; &lt;!-- 配置DispatcherServlet --&gt; &lt;servlet&gt; &lt;servlet-name&gt;dispatcher&lt;/servlet-name&gt; &lt;servlet-class&gt;org.springframework.web.servlet.DispatcherServlet&lt;/servlet-class&gt; &lt;init-param&gt; &lt;param-name&gt;contextConfigLocation&lt;/param-name&gt; &lt;param-value&gt;classpath:spring_*.xml&lt;/param-value&gt; &lt;/init-param&gt; &lt;load-on-startup&gt;1&lt;/load-on-startup&gt; &lt;/servlet&gt; &lt;servlet-mapping&gt; &lt;servlet-name&gt;dispatcher&lt;/servlet-name&gt; &lt;url-pattern&gt;/&lt;/url-pattern&gt; &lt;/servlet-mapping&gt;  其中在init-param中自定义加载了spring_mvc." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://wesleyzxl.github.io/post/blog/" />
+<meta property="article:published_time" content="2019-05-12T04:44:48&#43;08:00"/>
+<meta property="article:modified_time" content="2019-05-12T04:44:48&#43;08:00"/>
+
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="https://wesleyzxl.github.io/"><img class="app-header-avatar" src="/avatar.jpg" alt="John Doe" /></a>
+      <h1>My New Hugo Site</h1>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vehicula turpis sit amet elit pretium.</p>
+      <div class="app-header-social">
+        
+      </div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">Blog</h1>
+      <div class="post-meta">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          May 12, 2019
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          3 min read
+        </div></div>
+    </header>
+    <div class="post-content">
+      
+
+<h1 id="springmvc">SpringMVC</h1>
+
+<h2 id="mvc模式">MVC模式</h2>
+
+<p>在Java Web应用开发中有两种设计模型，模型1是以页面为中心，适合小应用开发；模型2基于MVC模式，是Java Web应用的推荐架构。</p>
+
+<p>模型1：学习JSP时通常通过链接的方式进行JSP页面间的跳转，但是这种方式会带来维护上的问题。</p>
+
+<p>模型2：基于模型 - 视图 - 控制器（model - view - controller）模式</p>
+
+<ul>
+<li>视图负责应用的展示</li>
+<li>模型封装了应用的数据和业务逻辑</li>
+<li>控制器负责接收用户输入，改变模型以及调整视图的显示。</li>
+</ul>
+
+<p>模型2中Servlet和Filter都可以充当控制器。Struts1, Spring MVC, JavaServer Faces使用一个Servlet作为控制器，Struts2使用Filter作为控制器。大部分都采用JSP页面作为应用的视图。模型采用POJO(Plain Old Java Object)。</p>
+
+<p>每个HTTP请求都发送给控制器，请求中的URI标识出对应的action（代表了应用可以执行的一个操作）。一个提供了action的Java对象成为action对象，一个action类可以支持多个action（Spring MVC和Struts2中），或者一个action（Struts1中）</p>
+
+<p>控制器会解析URI并调用相应的action，然后将模型对象放到视图可以访问的区域（以便服务端数据可以展示在浏览器上）。最后，控制器利用RequestDispatcher或者HttpServlet Response.sendRedirect()方法跳转到视图（JSP页面或者其他资源）。在JSP页面中，用表达式语言以及定制标签显示数据。</p>
+
+<p><strong>注意</strong>：调用RequestDispatcher.forward方法或者HttpServletResponse.sendRedirect()方法并不会停止执行剩余的代码。因此，若forward方法不是最后一行代码，则应显式地返回。</p>
+
+<pre><code class="language-java">if (action.equals.(..)) {
+	// ...
+    request.getRequestDispatcher([dispatcherUrl]).forward(request, response);
+    return;
+}
+</code></pre>
+
+<hr />
+
+<h2 id="springmvc的helloworld">SpringMVC的HelloWorld</h2>
+
+<h3 id="配置web-xml">配置web.xml</h3>
+
+<p><img src="pic/Snipaste_2019-04-13_16-24-50.png" alt="" /></p>
+
+<pre><code class="language-xml">&lt;!-- 手动配置spring配置文件 --&gt;
+&lt;context-param&gt;
+  &lt;param-name&gt;contextConfigLocation&lt;/param-name&gt;
+  &lt;param-value&gt;classpath:spring_common.xml&lt;/param-value&gt;
+&lt;/context-param&gt;
+
+&lt;!-- 配置DispatcherServlet --&gt;
+&lt;servlet&gt;
+  &lt;servlet-name&gt;dispatcher&lt;/servlet-name&gt;
+  &lt;servlet-class&gt;org.springframework.web.servlet.DispatcherServlet&lt;/servlet-class&gt;
+  &lt;init-param&gt;
+    &lt;param-name&gt;contextConfigLocation&lt;/param-name&gt;
+    &lt;param-value&gt;classpath:spring_*.xml&lt;/param-value&gt;
+  &lt;/init-param&gt;
+  &lt;load-on-startup&gt;1&lt;/load-on-startup&gt;
+&lt;/servlet&gt;
+&lt;servlet-mapping&gt;
+  &lt;servlet-name&gt;dispatcher&lt;/servlet-name&gt;
+  &lt;url-pattern&gt;/&lt;/url-pattern&gt;
+&lt;/servlet-mapping&gt;
+</code></pre>
+
+<p>其中在init-param中自定义加载了spring_mvc.xml，如果未配置init-param则会默认加载/WEB-INF/[servlet-name]-servlet.xml的springmvc配置文件</p>
+
+<p>在spring配置文件中配置自动扫描的包</p>
+
+<pre><code class="language-xml">&lt;context:component-scan base-package=&quot;org.format.*&quot;/&gt;
+</code></pre>
+
+<p>在springmvc的配置文件中配置</p>
+
+<pre><code class="language-xml">&lt;mvc:annotation-driven/&gt;
+
+&lt;!-- 配置静态资源的位置防止被web.xml中的url-pattern识别 --&gt;
+&lt;mvc:resources mapping=&quot;static/*&quot; location=&quot;/static/&quot;/&gt;
+
+&lt;!-- 配置视图解析器，将视图逻辑名解析为/WEB-INF/jsp/[viewName].jsp --&gt;
+&lt;bean id=&quot;viewResolver&quot; class=&quot;org.springframework.web.servlet.view.InternalResourceViewResolver&quot;&gt;
+    &lt;property name=&quot;prefix&quot; value=&quot;/WEB-INF/jsp/&quot;/&gt;
+    &lt;property name=&quot;suffix&quot; value=&quot;.jsp&quot;/&gt;
+&lt;/bean&gt;
+</code></pre>
+
+<p>在SpringMVC3.0之后可以使用</p>
+
+<pre><code class="language-xml">&lt;mvc:default-servlet-handler/&gt;
+</code></pre>
+
+<p>来处理静态资源访问的问题。</p>
+
+<h3 id="控制器">控制器</h3>
+
+<pre><code class="language-java">@Controller
+public class HelloWorldController {
+    
+    @RequestMapping(&quot;/helloSpringMVC&quot;)
+    public String helloWorld() {
+        return &quot;Index&quot;;
+    }
+}
+</code></pre>
+
+<p>在WEB-INF/jsp下创建Index.jsp页面就可以通过localhost8080/helloSpringMVC访问到Index.jsp的页面</p>
+
+<hr />
+
+<h2 id="requestmapping">@RequestMapping</h2>
+
+<h3 id="映射请求">映射请求</h3>
+
+<ul>
+<li><p>使用@RequestMapping注解为控制器指定可以处理哪些URL请求</p></li>
+
+<li><p>在控制器的类定义和方法定义处都可以标注</p></li>
+
+<li><p>DispatcherServlet接获请求后就通过控制器上@RequestMapping 提供的映射信息确定请求所对应的处理方法。</p></li>
+</ul>
+
+<h3 id="映射请求参数-请求方法或请求头">映射请求参数、请求方法或请求头</h3>
+
+<p>@RequestMapping的value、method、params 及 heads 属性分别表示请求 URL、请求方法、请求参数及请求头的映射条件，他们之间是与的关系，联合使用多个条件可让请求映射更加精确化。</p>
+
+<p>标准的HTTP请求报头</p>
+
+<p><img src="pic/Snipaste_2019-04-15_09-23-09.png" alt="" /></p>
+
+<p>使用@RequestMapping映射请求参数，请求方法或请求头的示例</p>
+
+<p><img src="pic/Snipaste_2019-04-15_09-20-50.png" alt="" /></p>
+
+<h3 id="支持ant风格url">支持Ant风格URL</h3>
+
+<p>3中匹配符</p>
+
+<ul>
+<li>? 匹配文件名中的一个字符</li>
+<li>* 匹配文件名中的任意字符</li>
+<li>** 匹配多层路径</li>
+</ul>
+
+<p>例如</p>
+
+<ul>
+<li>/user/*/createUser:</li>
+</ul>
+
+<p>匹配/user/aaa/createUser、/user/bbb/createUser 等 URL</p>
+
+<ul>
+<li>/user/**/createUser</li>
+</ul>
+
+<p>匹配/user/createUser、/user/aaa/bbb/createUser 等 URL</p>
+
+<ul>
+<li>/user/createUser??</li>
+</ul>
+
+<p>/user/createUseraa、/user/createUserbb 等 URL</p>
+
+<h3 id="pathvariable映射url绑定的占位符-rest">@PathVariable映射URL绑定的占位符/REST</h3>
+
+<p>带占位符的 URL 是 Spring3.0 新增的功能，该功能在SpringMVC 向 REST 目标挺进发展过程中具有里程碑的意义</p>
+
+<p>通过 @PathVariable 可以将 URL 中占位符参数绑定到控制器处理方法的入参中：</p>
+
+<pre><code class="language-java">@RequestMapping(&quot;/delete/{id}&quot;)
+public String delete(@PathVariable(&quot;id&quot;) int id) {
+    UserDao.delete(id);
+    return &quot;redirect:/user/list.action&quot;;
+}
+</code></pre>
+
+<p>REST(Representational State Transfer)（资源）表现层状态转化。是目前最流行的一种互联网软件架构。它结构清晰、符合标准、易于理解、扩展方便，所以正得到越来越多网站的采用</p>
+
+<ul>
+<li>资源（Resources）：网络上的一个实体，或者说是网络上的一个具体信息。它可以是一段文本、一张图片、一首歌曲、一种服务，总之就是一个具体的存在。可以用一个URI（统一资源定位符）指向它，每种资源对应一个特定的 URI 。要获取这个资源，访问它的URI就可以，因此 URI 即为每一个资源的独一无二的识别符。</li>
+<li>表现层（Representation）：把资源具体呈现出来的形式，叫做它的表现层（Representation）。比如，文本可以用 txt 格式表现，也可以用 HTML 格式、XML 格式、JSON 格式表现，甚至可以采用二进制格式。</li>
+<li>状态转化（State Transfer）：每发出一个请求，就代表了客户端和服务器的一次交互过程。HTTP协议，是一个无状态协议，即所有的状态都保存在服务器端。因此，如果客户端想要操作服务器，必须通过某种手段，让服务器端发生“状态转化”（State Transfer）。而这种转化是建立在表现层之上的，所以就是 “表现层状态转化”
+。具体说，就是 <strong>HTTP 协议里面，四个表示操作方式的动词：GET、POST、PUT、DELETE。它们分别对应四种基本操作：GET 用来获取资源，POST 用来新建资源，PUT 用来更新资源，DELETE 用来删除资源。</strong></li>
+</ul>
+
+<p><img src="pic/Snipaste_2019-04-15_09-44-37.png" alt="" /></p>
+
+<hr />
+
+<h2 id="映射请求参数-请求参数">映射请求参数 &amp; 请求参数</h2>
+
+<p>可以对方法及方法入参标注相应的注解（@PathVariable、@RequestParam、@RequestHeader 等）、Spring MVC 框架会将 HTTP 请求的信息绑定到相应的方法入参中，并根据方法的返回值类型做出相应的后续处理</p>
+
+<h3 id="rquestparam">@RquestParam</h3>
+
+<p>可以把请求参数传递给请求方法</p>
+
+<ul>
+<li>value 参数名</li>
+<li>required 是否必须，默认为 true, 表示请求参数中必须包含对应的参数，若不存在，将抛出异常</li>
+<li>defaultValue 为属性设置默认值</li>
+</ul>
+
+<pre><code class="language-java">@ReuqestMapping(&quot;/handle5&quot;)
+public String handle5(@RequestParam(value=&quot;userName&quot;, required=false) String userName, @RequestParam(&quot;age&quot;) int age) {
+    return &quot;success&quot;;
+}
+</code></pre>
+
+<h3 id="requestheader">@RequestHeader</h3>
+
+<p>绑定请求报头的属性值。通过 @RequestHeader 即可将请求头中的属性值绑定到处理方法的入参中</p>
+
+<pre><code class="language-java">@RequestMapping(&quot;/handle&quot;)
+public String handle(@RequestHeader(&quot;Accept-Encoding&quot;) String encoding, @RequestHeader(&quot;Keep-Alive&quot;) long keepAlive) {
+    // ...
+    return &quot;success&quot;;
+}
+</code></pre>
+
+<h3 id="cookievalue">@CookieValue</h3>
+
+<p>绑定请求中的Cookie值，可以处理方法入参绑定某个Cookie值</p>
+
+<pre><code class="language-java">@RequestMapping
+public String handle(@CookieValue(value=&quot;sessionId&quot;, reqired=false) String sessionId, @RequestParam(&quot;age&quot;) int age) {
+    // ...
+    return &quot;success&quot;;
+}
+</code></pre>
+
+<h3 id="pojo对象绑定请求参数值">POJO对象绑定请求参数值</h3>
+
+<p>Spring MVC 会按请求参数名和 POJO 属性名进行自动匹配，自动为该对象填充属性值。支持级联属性（在一个POJO中有属性为另个一对象时，方法中只传入一个对象就可以通过这个对象访问里另一个对象的属性）。如：dept.deptId、dept.address.tel 等</p>
+
+<pre><code class="language-java">@RequestMapping(&quot;/handle&quot;)
+public String handle(User user) {
+    return &quot;success&quot;;
+}
+</code></pre>
+
+<h3 id="servletapi类型的参数">ServletAPI类型的参数</h3>
+
+<p>支持的参数有</p>
+
+<ul>
+<li>HttpServletRequest</li>
+<li>HttpServletResponse</li>
+<li>HttpSession</li>
+<li>java.security.Principal</li>
+<li>Locale</li>
+<li>InputStream</li>
+<li>OutputStream</li>
+<li>Reader</li>
+<li>Writer</li>
+</ul>
+
+<hr />
+
+<h2 id="处理模型数据">处理模型数据</h2>
+
+<h3 id="modleandview">ModleAndView</h3>
+
+<p>处理方法返回值类型为 ModelAndView时, 方法体即可通过该对象添加模型数据</p>
+
+<p>可以通过构造方法设置需要return的值</p>
+
+<pre><code class="language-java">ModelAndView modelAndView = new ModelAndView(&quot;Index&quot;);
+</code></pre>
+
+<p>添加模型数据</p>
+
+<pre><code class="language-java">public ModelAndView addObject(String attributeName, @Nullable Object attributeValue)
+public ModelAndView addAllObjects(@Nullable Map&lt;String, ?&gt; modelMap)
+</code></pre>
+
+<p>设置视图</p>
+
+<pre><code class="language-java">void setView(View view)
+void setViewName(String viewName)
+</code></pre>
+
+<h3 id="map及model">Map及Model</h3>
+
+<h3 id="modelattribute">@ModelAttribute</h3>
+
+<p>在方法定义上使用 @ModelAttribute 注解：Spring MVC 在调用目标处理方法前，会先逐个调用在方法级上标注了@ModelAttribute 的方法。</p>
+
+<p>在方法的入参前使用 @ModelAttribute 注解：</p>
+
+<ul>
+<li>可以从隐含对象中获取隐含的模型数据中获取对象，再将请求参数
+绑定到对象中，再传入入参</li>
+<li>将方法入参对象添加到模型中</li>
+</ul>
+
+<h4 id="springmvc-确定目标方法-pojo-类型入参的过程">SpringMVC 确定目标方法 POJO 类型入参的过程</h4>
+
+<ol>
+<li>确定一个 key:
+1). 若目标方法的 POJO 类型的参数没有使用 @ModelAttribute 作为修饰, 则 key 为 POJO 类名（第一个字母为小写）
+2). 若使用了  @ModelAttribute 来修饰, 则 key 为 @ModelAttribute 注解的 value 属性值.</li>
+<li>在 implicitModel 中查找 key 对应的对象, 若存在, 则作为入参传入
+若在 @ModelAttribute 标记的方法中在 Map 中保存过, 且 key 和 1 确定的 key 一致, 则会获取到.</li>
+<li>若 implicitModel 中不存在 key 对应的对象, 则检查当前的 Handler 是否使用 @SessionAttributes 注解修饰,
+若使用了该注解, 且 @SessionAttributes 注解的 value 属性值中包含了 key, 则会从 HttpSession 中来获取 key 所对应的 value 值, 若存在则直接传入到目标方法的入参中. 若不存在则将抛出异常.</li>
+<li>若 Handler 没有标识 @SessionAttributes 注解或 @SessionAttributes 注解的 value 值中不包含 key, 则会通过反射来创建 POJO 类型的参数, 传入为目标方法的参数</li>
+<li>SpringMVC 会把 key 和 POJO 类型的对象保存到 implicitModel 中, 进而会保存到 request 中.</li>
+</ol>
+
+    </div>
+    <div class="post-footer">
+      
+    </div>
+  </article>
+
+    </main>
+  </body>
+</html>

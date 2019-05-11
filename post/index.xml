@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on My New Hugo Site</title>
+    <link>https://wesleyzxl.github.io/post/</link>
+    <description>Recent content in Posts on My New Hugo Site</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 12 May 2019 04:44:48 +0800</lastBuildDate>
+    
+	<atom:link href="https://wesleyzxl.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Blog</title>
+      <link>https://wesleyzxl.github.io/post/blog/</link>
+      <pubDate>Sun, 12 May 2019 04:44:48 +0800</pubDate>
+      
+      <guid>https://wesleyzxl.github.io/post/blog/</guid>
+      <description>SpringMVC MVC模式 在Java Web应用开发中有两种设计模型，模型1是以页面为中心，适合小应用开发；模型2基于MVC模式，是Java Web应用的推荐架构。
+模型1：学习JSP时通常通过链接的方式进行JSP页面间的跳转，但是这种方式会带来维护上的问题。
+模型2：基于模型 - 视图 - 控制器（model - view - controller）模式
+ 视图负责应用的展示 模型封装了应用的数据和业务逻辑 控制器负责接收用户输入，改变模型以及调整视图的显示。  模型2中Servlet和Filter都可以充当控制器。Struts1, Spring MVC, JavaServer Faces使用一个Servlet作为控制器，Struts2使用Filter作为控制器。大部分都采用JSP页面作为应用的视图。模型采用POJO(Plain Old Java Object)。
+每个HTTP请求都发送给控制器，请求中的URI标识出对应的action（代表了应用可以执行的一个操作）。一个提供了action的Java对象成为action对象，一个action类可以支持多个action（Spring MVC和Struts2中），或者一个action（Struts1中）
+控制器会解析URI并调用相应的action，然后将模型对象放到视图可以访问的区域（以便服务端数据可以展示在浏览器上）。最后，控制器利用RequestDispatcher或者HttpServlet Response.sendRedirect()方法跳转到视图（JSP页面或者其他资源）。在JSP页面中，用表达式语言以及定制标签显示数据。
+注意：调用RequestDispatcher.forward方法或者HttpServletResponse.sendRedirect()方法并不会停止执行剩余的代码。因此，若forward方法不是最后一行代码，则应显式地返回。
+if (action.equals.(..)) { // ... request.getRequestDispatcher([dispatcherUrl]).forward(request, response); return; }  SpringMVC的HelloWorld 配置web.xml &amp;lt;!-- 手动配置spring配置文件 --&amp;gt; &amp;lt;context-param&amp;gt; &amp;lt;param-name&amp;gt;contextConfigLocation&amp;lt;/param-name&amp;gt; &amp;lt;param-value&amp;gt;classpath:spring_common.xml&amp;lt;/param-value&amp;gt; &amp;lt;/context-param&amp;gt; &amp;lt;!-- 配置DispatcherServlet --&amp;gt; &amp;lt;servlet&amp;gt; &amp;lt;servlet-name&amp;gt;dispatcher&amp;lt;/servlet-name&amp;gt; &amp;lt;servlet-class&amp;gt;org.springframework.web.servlet.DispatcherServlet&amp;lt;/servlet-class&amp;gt; &amp;lt;init-param&amp;gt; &amp;lt;param-name&amp;gt;contextConfigLocation&amp;lt;/param-name&amp;gt; &amp;lt;param-value&amp;gt;classpath:spring_*.xml&amp;lt;/param-value&amp;gt; &amp;lt;/init-param&amp;gt; &amp;lt;load-on-startup&amp;gt;1&amp;lt;/load-on-startup&amp;gt; &amp;lt;/servlet&amp;gt; &amp;lt;servlet-mapping&amp;gt; &amp;lt;servlet-name&amp;gt;dispatcher&amp;lt;/servlet-name&amp;gt; &amp;lt;url-pattern&amp;gt;/&amp;lt;/url-pattern&amp;gt; &amp;lt;/servlet-mapping&amp;gt;  其中在init-param中自定义加载了spring_mvc.</description>
+    </item>
+    
+  </channel>
+</rss>
